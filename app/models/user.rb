@@ -12,4 +12,5 @@ class User < ApplicationRecord
   validates :birthday, presence: true
 
   validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'must include both letters and numbers' }
+  validates :password, format: { with: /\A[\x20-\x7E]+\z/, message: 'must include only half-width characters' }
 end
