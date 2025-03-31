@@ -77,6 +77,17 @@ RSpec.describe Item, type: :model do
         @item.scheduled_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Scheduled must be other than 1')
+
+        it '画像が空だと登録できない' do
+          @item.image = nil
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Image can't be blank")
+        end
+  
+        it 'ユーザーが紐づいていないと登録できない' do
+          @item.user = nil
+          @item.valid?
+          expect(@item.errors.full_messages).to include("User must exist")
       end
     end
   end

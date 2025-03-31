@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to :shipping_fee
   belongs_to :prefecture
   belongs_to :scheduled
+  belongs_to :user
 
   validates :name, presence: true
   validates :description, presence: true
