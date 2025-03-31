@@ -133,7 +133,7 @@
       <li class='list'>
         <%= link_to "#"  do %>
         <div class='item-img-content'>
-          <%= image_tag item.image.attached? ? item.image : "item-sample.png", class: "item-img" %>
+          <%= image_tag item.image, class: "item-img" %>
 
           
           <%# 商品が売れていればsold outを表示しましょう %>
@@ -149,7 +149,7 @@
             <%= item.name %>
           </h3>
           <div class='item-price'>
-            <span><%= item.price %>円<br><%= item.shipping_fee_id == 1 ? '送料込み' : '着払い' %></span>
+            <span><%= item.price %>円<br><%= item.shipping_fee.name %>
             <div class='star-btn'>
               <%= image_tag "star.png", class:"star-icon" %>
               <span class='star-count'>0</span>
@@ -162,7 +162,7 @@
      
 
       <% else %>
-      <%# 商品がある場合は表示されないようにしましょう %>
+      
       <li class='list'>
         <%= link_to '#' do %>
         <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
@@ -181,7 +181,7 @@
         <% end %>
       </li>
       <% end %>
-      <%# //商品がある場合は表示されないようにしましょう %>
+     
       
     </ul>
   </div>
