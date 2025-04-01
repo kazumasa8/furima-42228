@@ -1,6 +1,11 @@
 class Item < ApplicationRecord
   has_one_attached :image
 
+  def sold?
+    # 商品が売れているかどうかの判定ロジック
+    !order.nil?
+  end
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :condition
