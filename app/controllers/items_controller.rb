@@ -2,7 +2,6 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :check_user, only: [:edit, :update]
 
-
   def index
     @items = Item.order(created_at: :desc)
   end
@@ -26,7 +25,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item= Item.find(params[:id])
+    @item = Item.find(params[:id])
   end
 
   def update
@@ -38,7 +37,6 @@ class ItemsController < ApplicationController
     end
   end
 
-
   private
 
   def item_params
@@ -48,10 +46,8 @@ class ItemsController < ApplicationController
 
   def check_user
     @item = Item.find(params[:id])
-    unless @item.user == current_user
-      redirect_to root_path, notice: "You are not authorized to perform this action."
-    end
+    return if @item.user == current_user
+
+    redirect_to root_path, notice: 'You are not authorized to perform this action.'
   end
-
-
 end
