@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update]
   before_action :check_user, only: [:edit, :update]
 
   def index
@@ -29,7 +30,6 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
@@ -44,8 +44,11 @@ class ItemsController < ApplicationController
                                  :scheduled_id, :price, :image).merge(user_id: current_user.id)
   end
 
-  def check_user
+  def set_item  # これで show, edit, update の共通処理をまとめます
     @item = Item.find(params[:id])
+  end
+
+  def check_user
     return if @item.user == current_user
 
     redirect_to root_path, notice: 'You are not authorized to perform this action.'
