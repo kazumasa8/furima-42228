@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_item, only: [:show, :edit, :update]
-  before_action :check_user, only: [:edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :check_user, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.order(created_at: :desc)
@@ -22,11 +22,9 @@ class ItemsController < ApplicationController
   end
 
   def show
-    
   end
 
   def edit
-   
   end
 
   def update
@@ -37,6 +35,12 @@ class ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    
+    @item.destroy
+    redirect_to root_path
+  end
+
   private
 
   def item_params
@@ -44,7 +48,7 @@ class ItemsController < ApplicationController
                                  :scheduled_id, :price, :image).merge(user_id: current_user.id)
   end
 
-  def set_item  # これで show, edit, update の共通処理をまとめます
+  def set_item
     @item = Item.find(params[:id])
   end
 
