@@ -35,7 +35,7 @@ RSpec.describe OrderForm, type: :model do
       it '都道府県が未選択（id:1）だと購入できない' do
         @order_form.prefecture_id = 1
         @order_form.valid?
-        expect(@order_form.errors.full_messages).to include("Prefecture must be selected")
+        expect(@order_form.errors.full_messages).to include('Prefecture must be selected')
       end
       it '市区町村が空だと購入できない' do
         @order_form.city = ''
@@ -57,26 +57,25 @@ RSpec.describe OrderForm, type: :model do
       it '電話番号が9桁以下だと購入できない' do
         @order_form.phone_number = '12345678'
         @order_form.valid?
-        expect(@order_form.errors.full_messages).to include("Phone number must be between 10 and 11 digits")
+        expect(@order_form.errors.full_messages).to include('Phone number must be between 10 and 11 digits')
       end
 
       it '電話番号が12桁以上だと購入できない' do
         @order_form.phone_number = '123456789012'
         @order_form.valid?
-        expect(@order_form.errors.full_messages).to include("Phone number must be between 10 and 11 digits")
+        expect(@order_form.errors.full_messages).to include('Phone number must be between 10 and 11 digits')
       end
       it '電話番号にハイフンが含まれていると購入できない' do
         @order_form.phone_number = '090-1234-5678'
         @order_form.valid?
-        expect(@order_form.errors.full_messages).to include("Phone number must be between 10 and 11 digits")
+        expect(@order_form.errors.full_messages).to include('Phone number must be between 10 and 11 digits')
       end
 
-      it "tokenが空では登録できないこと" do
+      it 'tokenが空では登録できないこと' do
         @order_form.token = nil
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include("Token can't be blank")
       end
-
-      end
     end
   end
+end
