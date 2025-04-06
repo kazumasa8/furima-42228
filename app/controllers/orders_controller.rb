@@ -1,14 +1,15 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user! # ← ③ ログアウト状態ならログインページへ
+  before_action :set_item           # @item を準備（index / create 両方で使う）
+  before_action :redirect_if_invalid_user # ← ①②に対応するチェック！
 
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @item = Item.find(params[:item_id])
     @order_form = OrderForm.new
   end
 
  def create
-    @item = Item.find(params[:item_id])
 
     @order_form = OrderForm.new(order_params)
 
@@ -39,5 +40,17 @@ Payjp::Charge.create(
   card: order_params[:token],    # カードトークン
   currency: 'jpy'                 # 通貨の種類（日本円）
 )
+end
+
+def set_item
+  @item = Item.find(params[:item_id])
+end
+
+# 🚫①② 購入できない条件のときはトップページへ
+def redirect_if_invalid_user
+  # 売り切れてる or 自分の商品なら → トップページに戻す
+  if @item.order.present? || @item.user == current_user
+    redirect_to root_path
+end
 end
 end
