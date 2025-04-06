@@ -9,6 +9,8 @@ class Item < ApplicationRecord
   belongs_to :scheduled
   belongs_to :user
 
+  has_one :order
+
   validates :name, presence: true
   validates :description, presence: true
   validates :price, presence: true,
