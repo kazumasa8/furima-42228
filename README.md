@@ -39,7 +39,7 @@
 
 ---
 
-##  purchase_logs テーブル（購入履歴）
+##  orders テーブル（購入履歴）
 
 
 | Column        | Type       | Options                        |

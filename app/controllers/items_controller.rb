@@ -36,7 +36,6 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    
     @item.destroy
     redirect_to root_path
   end
@@ -53,7 +52,7 @@ class ItemsController < ApplicationController
   end
 
   def check_user
-    return if @item.user == current_user
+    return if @item.user == current_user && @item.order.nil?
 
     redirect_to root_path, notice: 'You are not authorized to perform this action.'
   end
